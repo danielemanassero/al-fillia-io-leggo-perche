@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>#ioleggoperché – Lista dei Desideri</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>📚 #ioleggoperché</h1>
+    <p>Scegli un libro dall'elenco. Dopo averlo acquistato in libreria, segnalo come "acquistato" qui sotto.</p>
+  </header>
+
+  <main>
+    <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+
+    <ul id="book-list" class="book-list" aria-live="polite"></ul>
+
+    <form id="add-book-form" class="add-book-form">
+      <label for="new-book-title">Hai acquistato un libro che non è in elenco?</label>
+      <div class="add-book-row">
+        <input type="text" id="new-book-title" name="new-book-title" placeholder="Titolo del libro" required maxlength="200" autocomplete="off">
+        <button type="submit">Aggiungi</button>
+      </div>
+    </form>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

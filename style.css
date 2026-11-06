@@ -1,0 +1,175 @@
+:root {
+  --color-bg: #faf7f2;
+  --color-text: #2e2a26;
+  --color-primary: #b2452f;
+  --color-primary-dark: #8f3524;
+  --color-available-border: #ddd4c8;
+  --color-purchased-bg: #eef5ee;
+  --color-purchased-text: #3c6e47;
+  --color-error: #a3302a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+header {
+  padding: 1.5rem 1rem 1rem;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+header p {
+  margin: 0 auto;
+  max-width: 32rem;
+  color: #5a5248;
+}
+
+main {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+}
+
+.status-message {
+  min-height: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-purchased-text);
+}
+
+.status-message--error {
+  color: var(--color-error);
+}
+
+.book-list {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.book-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  border: 1px solid var(--color-available-border);
+  border-radius: 0.5rem;
+}
+
+.book-item--purchased {
+  background: var(--color-purchased-bg);
+}
+
+.book-title {
+  flex: 1;
+}
+
+.book-item--purchased .book-title {
+  color: var(--color-purchased-text);
+}
+
+.badge {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+}
+
+.badge--purchased {
+  background: var(--color-purchased-text);
+  color: #fff;
+}
+
+.btn-buy {
+  flex-shrink: 0;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-buy:hover,
+.btn-buy:focus-visible {
+  background: var(--color-primary-dark);
+}
+
+.add-book-form {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-available-border);
+}
+
+.add-book-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.add-book-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-book-row input {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-available-border);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.add-book-row button {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.add-book-row button:hover,
+.add-book-row button:focus-visible {
+  background: var(--color-primary-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #1d1a17;
+    --color-text: #f0ece4;
+    --color-available-border: #3a342c;
+    --color-purchased-bg: #203023;
+    --color-purchased-text: #8fd19e;
+  }
+
+  .book-item {
+    background: #27221d;
+  }
+
+  .add-book-row input {
+    background: #27221d;
+    color: var(--color-text);
+  }
+}
