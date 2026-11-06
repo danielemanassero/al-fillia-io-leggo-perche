@@ -44,12 +44,21 @@ non solo nell'interfaccia.
 - `index.html`, `style.css`, `app.js` — la webapp.
 - `config.js` — credenziali pubbliche Supabase (da compilare, vedi sopra).
 - `supabase/schema.sql` — schema del database, regole di sicurezza e dati
-  iniziali, da eseguire una sola volta su Supabase.
+  iniziali, da eseguire una sola volta su un progetto Supabase nuovo.
+- `supabase/migration_add_category.sql` — da eseguire una sola volta solo se
+  il progetto Supabase era già stato creato prima dell'introduzione delle
+  categorie (aggiunge la colonna `category` e la valorizza sui 44 libri
+  iniziali). Non serve su un progetto nuovo: `schema.sql` la include già.
 
 ## Comportamento
 
 - L'elenco si aggiorna da solo ogni 20 secondi, così chi è in libreria vede
   (quasi) in tempo reale cosa hanno già acquistato gli altri.
+- I libri sono raggruppati per categoria, nello stesso ordine della lista
+  originale della scuola: "Storie di Natale e d'Inverno", "Amicizia,
+  Emozioni e Piccole Scoperte", "English Corner (English Books)". I libri
+  aggiunti manualmente (non presenti nella lista) compaiono in coda, sotto
+  "Altri libri aggiunti".
 - Segnare un libro come acquistato richiede sempre una conferma esplicita,
   perché l'operazione è irreversibile.
 - Se due persone provano a comprare lo stesso libro quasi in contemporanea,

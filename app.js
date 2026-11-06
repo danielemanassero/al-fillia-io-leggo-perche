@@ -10,10 +10,17 @@ const statusMsgEl = document.getElementById("status-message");
 
 const REFRESH_INTERVAL_MS = 20000;
 
+const CATEGORY_ORDER = [
+  "Storie di Natale e d'Inverno",
+  "Amicizia, Emozioni e Piccole Scoperte",
+  "English Corner (English Books)",
+];
+const OTHER_CATEGORY_LABEL = "Altri libri aggiunti";
+
 async function loadBooks() {
   const { data, error } = await supabase
     .from("books")
-    .select("id, title, status")
+    .select("id, title, status, category")
     .order("id", { ascending: true });
 
   if (error) {
@@ -28,31 +35,59 @@ async function loadBooks() {
 function renderBooks(books) {
   listEl.innerHTML = "";
 
+  const groups = new Map();
   for (const book of books) {
-    const li = document.createElement("li");
-    li.className = "book-item" + (book.status === "acquistato" ? " book-item--purchased" : "");
+    const key = CATEGORY_ORDER.includes(book.category) ? book.category : OTHER_CATEGORY_LABEL;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(book);
+  }
 
-    const titleSpan = document.createElement("span");
-    titleSpan.className = "book-title";
-    titleSpan.textContent = book.title;
-    li.appendChild(titleSpan);
+  const orderedKeys = [
+    ...CATEGORY_ORDER.filter((category) => groups.has(category)),
+    ...(groups.has(OTHER_CATEGORY_LABEL) ? [OTHER_CATEGORY_LABEL] : []),
+  ];
 
-    if (book.status === "acquistato") {
-      const badge = document.createElement("span");
-      badge.className = "badge badge--purchased";
-      badge.textContent = "Acquistato";
-      li.appendChild(badge);
-    } else {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "btn-buy";
-      btn.textContent = "Segna come acquistato";
-      btn.addEventListener("click", () => confirmPurchase(book));
-      li.appendChild(btn);
+  for (const category of orderedKeys) {
+    const heading = document.createElement("h2");
+    heading.className = "category-heading";
+    heading.textContent = category;
+    listEl.appendChild(heading);
+
+    const ul = document.createElement("ul");
+    ul.className = "book-list";
+
+    for (const book of groups.get(category)) {
+      ul.appendChild(buildBookItem(book));
     }
 
-    listEl.appendChild(li);
+    listEl.appendChild(ul);
   }
+}
+
+function buildBookItem(book) {
+  const li = document.createElement("li");
+  li.className = "book-item" + (book.status === "acquistato" ? " book-item--purchased" : "");
+
+  const titleSpan = document.createElement("span");
+  titleSpan.className = "book-title";
+  titleSpan.textContent = book.title;
+  li.appendChild(titleSpan);
+
+  if (book.status === "acquistato") {
+    const badge = document.createElement("span");
+    badge.className = "badge badge--purchased";
+    badge.textContent = "Acquistato";
+    li.appendChild(badge);
+  } else {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn-buy";
+    btn.textContent = "Segna come acquistato";
+    btn.addEventListener("click", () => confirmPurchase(book));
+    li.appendChild(btn);
+  }
+
+  return li;
 }
 
 async function confirmPurchase(book) {

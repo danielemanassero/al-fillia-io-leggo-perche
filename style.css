@@ -54,9 +54,19 @@ main {
   color: var(--color-error);
 }
 
+.category-heading {
+  margin: 1.75rem 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--color-primary-dark);
+}
+
+.category-heading:first-child {
+  margin-top: 1rem;
+}
+
 .book-list {
   list-style: none;
-  margin: 1rem 0;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
